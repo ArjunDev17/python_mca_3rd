@@ -1,0 +1,40 @@
+Lab 8
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+dataset = pd.read_csv('dataset.csv')
+print(dataset.shape)
+print(dataset.head(5))
+
+#Visualize the data
+
+plt.xlabel('Area')
+plt.ylabel('Price')
+plt.scatter(dataset.area,dataset.price,color='blue',marker='*')
+
+
+X = dataset['area'] 
+X = dataset.drop('price',axis='columns') 
+X
+
+Y = dataset.price
+Y
+
+#Training Dataset using Linear Regression
+model = LinearRegression()
+model.fit(X,Y)
+#Predicted Price for Land sq.Feet of custom values
+x=40000
+LandAreainSqFt=[[x]]
+PredictedmodelResult = model.predict(LandAreainSqFt)
+print(PredictedmodelResult)
+
+
+#Coefficient - m
+m=model.coef_
+#Intercept - b
+b=model.intercept_
+#x is Independant variable - Input - area
+y = m*x + b
+print("The Price of {0} Square feet Land is: {1}".format(x,y))
+
